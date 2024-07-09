@@ -23,7 +23,7 @@ return [
 
     'locales' => [
         'en',
-        'zh-HK',
+        'ar',
     ],
 
     /*

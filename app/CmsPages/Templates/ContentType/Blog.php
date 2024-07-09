@@ -4,6 +4,7 @@ namespace App\CmsPages\Templates\ContentType;
 
 use Filament\Forms;
 use SolutionForest\FilamentCms\CmsPages\Contracts\CmsPageTemplate;
+use Filament\Forms\Components\FileUpload;
 use SolutionForest\FilamentCms\CmsPages\Templates\ContentTypeTemplate as BaseTemplate;
 use Filament\Forms\Components\RichEditor;
 

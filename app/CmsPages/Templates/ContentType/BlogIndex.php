@@ -13,10 +13,19 @@ class BlogIndex extends BaseTemplate implements CmsPageTemplate
         return [
             Forms\Components\Card::make()
                 ->schema([
-                Forms\Components\TextInput::make('title')
-                        ->label('Title'),
-                    Forms\Components\TextInput::make('content')
-                        ->label(__('filament-cms::filament-cms.fields.cms_page.block-template.content'))
+                // Forms\Components\TextInput::make('title')
+                //         ->label('Title'),
+                Forms\Components\TextInput::make('content')
+                    ->label(__('filament-cms::filament-cms.fields.cms_page.block-template.content')),
+                Forms\Components\FileUpload::make('image')
+                    ->label('Image')
+                    ->image()
+                    ->multiple()
+                    ->maxFiles(3)
+                    ->enableReordering()
+                    ->enableDownload()
+                    ->enableOpen()
+                    ->directory('article'),
                 ]),
         ];
     }
