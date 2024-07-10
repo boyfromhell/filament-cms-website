@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
+use App\Livewire\Form;
+
+// \Illuminate\Support\Facades\Route::get('form', Form::class);
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +30,15 @@ Route::get('/cms/page/{slug}', function ($slug) {
     // Your route handling logic here
     // This might involve rendering a view or returning data related to the "slug"
 })->name('filament-cms.web.page'); // This names the route according to your requirement
+
+// Route::middleware([
+//     'web',
+// ])->group(function () { 
+//     Route::get('/{vue_capture?}', function() {
+//         return view('app');
+//     })->where('vue_capture', '[\/\w\.-]*');
+// });
+
+Route::get('/{vue_capture?}', function() {
+    return view('app');
+})->where('vue_capture', '[\/\w\.-]*');

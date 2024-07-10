@@ -15,8 +15,11 @@ class BlogIndex extends BaseTemplate implements CmsPageTemplate
                 ->schema([
                 // Forms\Components\TextInput::make('title')
                 //         ->label('Title'),
-                Forms\Components\TextInput::make('content')
-                    ->label(__('filament-cms::filament-cms.fields.cms_page.block-template.content')),
+                // Forms\Components\TextInput::make('content')
+                //     ->label(__('filament-cms::filament-cms.fields.cms_page.block-template.content')),
+                Forms\Components\Textarea::make('content')
+                    ->label('Content')
+                    ->rows(3),
                 Forms\Components\FileUpload::make('image')
                     ->label('Image')
                     ->image()

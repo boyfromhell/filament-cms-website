@@ -28,7 +28,7 @@
     @stack('styles')
 </head>
 
-<body x-data="global()" x-init="themeInit()"
+<!-- <body x-data="global()" x-init="themeInit()"
     :class="{
         'max-h-screen overflow-hidden relative' : isMobileMenuOpen,
     }"
@@ -50,6 +50,11 @@
     @stack('beforeCoreScripts')
     @stack('scripts')
 
-</body>
+</body> -->
+
+    <body>    
+        <div id="app"></div>
+        @vite('resources/js/app.js')
+    </body>
 
 </html>
