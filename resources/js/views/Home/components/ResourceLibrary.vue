@@ -106,7 +106,7 @@ const localizedTitle = computed(() => {
                 </p>
             </router-link>
         </div>
-        <div class="pt-8">
+        <div class="pt-8" v-if="librarys">
             <Carousel :itemsToShow="itemsToShow" :wrapAround="true">
                 <Slide v-for="(slide, index) in librarys" :key="index">
                     <div class="rounded-[10px] shadow-3xl">

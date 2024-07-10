@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, onBeforeMount, onMounted, onUnmounted } from "vue";
 import { storeToRefs } from "pinia";
 import { useArticleStore } from "@/store/article";
 // import useLibrary from "@/use/useLibrary";
@@ -21,8 +21,12 @@ function updateItemsToShow() {
 const { articles, selectedArticle, loading } = storeToRefs(useArticleStore());
 const articleStore = useArticleStore();
 
-onMounted(() => {
+onBeforeMount(() => {
     articleStore.fetch();
+    updateItemsToShow();
+    window.addEventListener("resize", updateItemsToShow);
+});
+onMounted(() => {
     updateItemsToShow();
     window.addEventListener("resize", updateItemsToShow);
 });
@@ -77,12 +81,12 @@ const { t, locale } = useI18n();
             >
                 {{ t("articles.content") }}
             </p>
-            <div class="w-3/4">
+            <div class="w-3/4" v-if="articles">
                 <Carousel :itemsToShow="itemsToShow" :wrapAround="true">
                     <Slide v-for="(slide, index) in articles" :key="index">
                         <div class="shadow-4xl rounded-[10px]">
                             <img
-                                class="px-6 pt-6"
+                                class="px-6 pt-6 rounded-[10px]"
                                 :src="
                                     '/storage/' +
                                     Object.values(slide.data.en.image)[0]
@@ -101,8 +105,8 @@ const { t, locale } = useI18n();
                                     <div
                                         class="text-[#313131] text-xs font-normal"
                                     >
-                                        <span>2024</span> <span>مايو </span>
-                                        <span>31</span>
+                                        <span>{{ (new Date(slide.updated_at)).getFullYear() }},</span> <span>{{ (new Date(slide.updated_at)).getMonth()+1 }},</span>
+                                        <span>{{ (new Date(slide.updated_at)).getDate() }}</span>
                                     </div>
                                 </div>
 

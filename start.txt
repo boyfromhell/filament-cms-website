@@ -1,0 +1,64 @@
+Filament CMS Website Plugin
+Getting started
+You can now download Filament CMS Website Plugin by following the instructions below.
+
+Composer
+Add the following repository to your composer.json:
+
+{
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://filament-cms-website-plugin.composer.sh"
+    }
+  ],
+}
+You can now install the package(s) listed below. Please consult Filament CMS Website Plugin's documentation for more information.
+
+composer require solution-forest/filament-cms-website-plugin
+You will now be prompted to enter your license credentials.
+
+Username:
+
+appsinfooo@gmail.com
+Password:
+
+d94f9e9e-dc42-4b87-ab6b-5d340f9846c4:https://canary4media.com
+That's it! You are all set.
+
+Recommendation
+It's not advised to store your auth.json file inside your project's version control repository. If you want to install Filament CMS Website Plugin during your CI/CD pipeline please use the CLI.
+
+composer config http-basic.filament-cms-website-plugin.composer.sh ${USERNAME} ${LICENSE}
+
+
+
+
+git clone https://github.com/filamentphp/demo.git
+
+composer require solution-forest/filament-cms-website-plugin --ignore-platform-req=ext-pcntl --ignore-platform-req=ext-posix
+
+composer update spatie/laravel-permission
+
+php artisan filament-cms:install
+php artisan filament-cms:page-template MyTemplate
+php artisan migrate
+php artisan make:filament-user
+
+localhost:8000/login
+name:rabbit
+email:mailforpanda0@gmail.com
+pwd:123456
+
+php artisan filament-cms:content-type-page Product products
+
+##multi language
+composer require filament/spatie-laravel-translatable-plugin:"^3.2" -W --ignore-platform-req=ext-pcntl --ignore-platform-req=ext-posix
+
+composer require filament/forms:"^3.2" -W --ignore-platform-req=ext-pcntl --ignore-platform-req=ext-posix
+
+php artisan storage:link
+
+php artisan migrate:rollback
+
+

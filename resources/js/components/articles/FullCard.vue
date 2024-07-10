@@ -121,10 +121,10 @@ const props = defineProps({
           </div>
         </div>
         <div class="flex gap-[10px]">
-          <img src="/images/articles/full/facebook.svg" />
-          <img src="/images/articles/full/twitter.svg" />
-          <img src="/images/articles/full/instagram.svg" />
-          <img src="/images/articles/full/youtube.svg" />
+          <div><img src="/images/articles/full/facebook.svg" /></div>
+          <div><img src="/images/articles/full/twitter.svg" /></div>
+          <div><img src="/images/articles/full/instagram.svg" /></div>
+          <div><img src="/images/articles/full/youtube.svg" /></div>
         </div>
       </div>
 

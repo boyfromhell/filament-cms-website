@@ -23,6 +23,9 @@ return new class extends Migration
             DbTable::hasAuthor($table);
 
             $table->bigInteger('parent_id')->nullable();
+            $table->bigInteger('like')->nullable();
+            $table->bigInteger('look')->nullable();
+            $table->bigInteger('save')->nullable();
 
             $table->timestamps();
 

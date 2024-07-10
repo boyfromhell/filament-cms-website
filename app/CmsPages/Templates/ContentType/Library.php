@@ -6,7 +6,7 @@ use Filament\Forms;
 use SolutionForest\FilamentCms\CmsPages\Contracts\CmsPageTemplate;
 use SolutionForest\FilamentCms\CmsPages\Templates\IndexContentTypeTemplate as BaseTemplate;
 
-class BlogIndex extends BaseTemplate implements CmsPageTemplate
+class Library extends BaseTemplate implements CmsPageTemplate
 {
     public static function schema(): array
     {
@@ -35,7 +35,7 @@ class BlogIndex extends BaseTemplate implements CmsPageTemplate
 
     public static function title(): string
     {
-        return 'BlogIndex';
+        return 'Library';
     }
 
     public static function getIndexPageKey()

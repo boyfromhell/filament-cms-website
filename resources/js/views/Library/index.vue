@@ -91,9 +91,19 @@ const change = (pageState) => {
     currentPage.value = pageState;
 };
 
-const itemsPaginated = computed(() =>
-    librarys.value.slice(5 * (currentPage.value - 1), 5 * currentPage.value)
+const itemsPaginated1 = computed(() =>
+        librarys.value.slice(5 * (currentPage.value - 1), 5 * currentPage.value)
 );
+const itemsPaginated = computed(() => {
+  // Check if the 'librarys' array has items
+  if (librarys.value) {
+    // If yes, return the paginated items
+    return librarys.value.slice(5 * (currentPage.value - 1), 5 * currentPage.value);
+  } else {
+    // If the array is empty, return an empty array or any suitable default
+    return [];
+  }
+});
 
 const { t, locale } = useI18n();
 </script>
@@ -118,7 +128,7 @@ const { t, locale } = useI18n();
             </div>
         </div>
 
-        <div class="pt-20 flex flex-col gap-12">
+        <div class="pt-20 flex flex-col gap-12" v-if="itemsPaginated">
             <div v-for="library in itemsPaginated" :key="library.id">
                 <library-card
                     :slug="library.slug"
@@ -131,6 +141,7 @@ const { t, locale } = useI18n();
     </div>
     <div class="example-six mt-20 mb-3">
         <vue-awesome-paginate
+            v-if="librarys"
             :total-items="librarys.length"
             v-model="currentPage"
             :items-per-page="5"

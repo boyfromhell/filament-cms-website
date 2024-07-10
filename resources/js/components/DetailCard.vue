@@ -31,8 +31,8 @@ const props = defineProps({
     class="text-start flex items-center gap-6 ltr:pr-8 rtl:pl-8 shadow-library rounded-normal"
   >
     <img :src="props.src" />
-    <div>
-      <div class="flex justify-between px-4 pb-7 items-center">
+    <div class="w-full">
+      <div class="flex justify-between pb-7 items-center">
         <p class="text-[#45315D] text-lg font-bold">
           {{ props.title }}
         </p>
