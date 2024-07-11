@@ -18,12 +18,25 @@ class CmsPageTableSeeder extends Seeder
 
         \DB::table('cms_pages')->delete();
         
-        \DB::table('cms_pages')->insert(array (
-            0 => 
-            array (
-                'id' => 1,
+        \DB::table('cms_pages')->insert([
+            [
+                // Assuming 'id' is auto-increment, you might not need to include it during insertion.
                 'slug' => 'cms-library',
                 'title' => '{"en":"Library"}',
+                'data' => NULL, // Ensure that having NULL here is intentional and acceptable in your application logic.
+                'template' => '{"key":null,"name":null}',
+                'page_type' => 'general',
+                'parent_id' => NULL, // Same comment as above.
+                'like' => NULL, // Ensure NULL is a valid and intentional value.
+                'look' => NULL,
+                'save' => NULL,
+                'created_at' => '2024-07-11 10:02:28',
+                'updated_at' => '2024-07-11 10:02:28',
+            ],
+            [
+                // Assuming id is auto-increment, remove it or ensure it's a unique value.
+                'slug' => 'cms-article',
+                'title' => '{"en":"Article"}',
                 'data' => NULL,
                 'template' => '{"key":null,"name":null}',
                 'page_type' => 'general',
@@ -33,8 +46,8 @@ class CmsPageTableSeeder extends Seeder
                 'save' => NULL,
                 'created_at' => '2024-07-11 10:02:28',
                 'updated_at' => '2024-07-11 10:02:28',
-            ),
-        ));
+            ],
+        ]);
         
         
     }

@@ -18,9 +18,23 @@ const change = (pageState) => {
     currentPage.value = pageState;
 };
 
-const itemsPaginated = computed(() =>
-    articles.value.slice(8 * (currentPage.value - 1), 8 * currentPage.value)
+const itemsPaginated1 = computed(() =>
+    articles.value.slice(16 * (currentPage.value - 1), 16 * currentPage.value)
 );
+
+const itemsPaginated = computed(() => {
+    // Check if the 'librarys' array has items
+    if (articles.value) {
+        // If yes, return the paginated items
+        return articles.value.slice(
+            16 * (currentPage.value - 1),
+            16 * currentPage.value
+        );
+    } else {
+        // If the array is empty, return an empty array or any suitable default
+        return [];
+    }
+});
 
 const { t, locale } = useI18n();
 </script>
@@ -58,7 +72,8 @@ const { t, locale } = useI18n();
                         :like="article.like"
                         :looked="article.look"
                         :src="
-                            '/storage/' + Object.values(article.data.en.image)[0]
+                            '/storage/' +
+                            Object.values(article.data.en.image)[0]
                         "
                     />
                 </div>
@@ -67,6 +82,7 @@ const { t, locale } = useI18n();
     </div>
     <div class="example-six mt-16 mb-8">
         <vue-awesome-paginate
+            v-if="articles"
             :total-items="articles.length"
             v-model="currentPage"
             :items-per-page="8"
