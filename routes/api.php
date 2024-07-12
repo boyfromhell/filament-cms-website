@@ -20,7 +20,7 @@ Route::get('/library', [LibraryController::class, 'index']);
 // Route::get('/library', GetLibraryAction::class);
 Route::get('/library/{slug}', [LibraryController::class, 'show']);
 Route::get('/article', [ArticleController::class, 'index']);
-Route::get('/article/{page}', [ArticleController::class, 'show']);
+Route::get('/article/{slug}', [ArticleController::class, 'show']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

@@ -48,4 +48,21 @@ class ArticleController extends Controller
     // {
     //     return new LibraryResource($page);
     // }
+    public function show(string $slug)
+    {
+        $pre_slug='cms-article';
+        $pre_slugId=CmsPage::where('slug', $pre_slug)->first();
+        if (!$pre_slugId) {
+            return response()->json(['success' => 0, 'message' => 'Predefined slug not found.'], 404);
+        }
+        $article=CmsPage::where('parent_id', $pre_slugId->id)
+                        ->where('slug', $slug)
+                        ->first();
+        if (!$article) {
+            return response()->json(['success' => 0, 'message' => 'Article not found.'], 404);
+        }
+        // dd($article);
+        return ['article' => $article,'success' => 1, 'message' => 'Article fetched successfully.'];
+        
+    }
 }

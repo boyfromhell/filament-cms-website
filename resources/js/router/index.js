@@ -53,9 +53,18 @@ const routes = [
             //         title: "",
             //     },
             // },
+            // {
+            //     path: "/articles/full",
+            //     name: "Full",
+            //     component: () =>
+            //         import("../views/Articles/components/Full.vue"),
+            //     meta: {
+            //         title: "",
+            //     },
+            // },
             {
-                path: "/articles/full",
-                name: "Full",
+                path: "/articles/:slug",
+                name: "Article",
                 component: () =>
                     import("../views/Articles/components/Full.vue"),
                 meta: {

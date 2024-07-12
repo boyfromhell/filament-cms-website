@@ -1,25 +1,30 @@
 <script setup>
 import { useI18n } from "vue-i18n";
 import { ref, onMounted, computed } from "vue";
-import { useDetailStore } from "@/store/detail";
+import { useArticleStore } from "@/store/article";
 import router from "@/router";
 import { storeToRefs } from "pinia";
 const { t, locale } = useI18n();
-const libraryStore = useDetailStore();
+const libraryStore = useArticleStore();
 const hour = ref("");
 const minute = ref("");
 const period = ref("");
-const { librarys, selectedLibrary, loading } = storeToRefs(useDetailStore());
-const handleClickDetails = (library) => {
-    //   console.log("library", library);
-    libraryStore.setSelectedLibrary(library);
-    router.push("/articles/full");
+const { articles, selectedArticle, loading } = storeToRefs(useArticleStore());
+const handleClickDetails = (article) => {
+    //   console.log("article.slug", article.slug);
+    libraryStore.setSelectedArticle(article);
+    // router.push("/articles/full");
+    router.push({ name: "Article", params: { slug: article.slug } });
 };
 onMounted(() => {
     getTime(props.date);
 });
 const props = defineProps({
     title: {
+        type: String,
+        default: "",
+    },
+    slug: {
         type: String,
         default: "",
     },

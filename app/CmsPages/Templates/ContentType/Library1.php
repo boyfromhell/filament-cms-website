@@ -4,9 +4,9 @@ namespace App\CmsPages\Templates\ContentType;
 
 use Filament\Forms;
 use SolutionForest\FilamentCms\CmsPages\Contracts\CmsPageTemplate;
-use SolutionForest\FilamentCms\CmsPages\Templates\ContentTypeTemplate as BaseTemplate;
+use SolutionForest\FilamentCms\CmsPages\Templates\IndexContentTypeTemplate as BaseTemplate;
 
-class Library extends BaseTemplate implements CmsPageTemplate
+class Library1 extends BaseTemplate implements CmsPageTemplate
 {
     public static function schema(): array
     {
@@ -28,13 +28,18 @@ class Library extends BaseTemplate implements CmsPageTemplate
                     ->enableReordering()
                     ->enableDownload()
                     ->enableOpen()
-                    ->directory('library'),
+                    ->directory('article'),
                 ]),
         ];
     }
 
     public static function title(): string
     {
-        return 'Library';
+        return 'Library1';
+    }
+
+    public static function getIndexPageKey()
+    {
+        return '10';
     }
 }

@@ -3,7 +3,32 @@ import { useI18n } from "vue-i18n";
 import FullCard from "@/components/articles/FullCard.vue";
 import MiniCard from "@/components/articles/MiniCard.vue";
 
+import { useArticleStore } from "@/store/article";
+import { storeToRefs } from "pinia";
+import { ref, onMounted } from "vue";
+import { useRoute } from "vue-router";
+import { articleService } from "@/services";
+
 const { t, locale } = useI18n();
+const articleStore = useArticleStore();
+const { articles } = storeToRefs(useArticleStore());
+const article = ref({});
+onMounted(() => {
+  // articleStore.fetch();
+    const route = useRoute();
+    console.log("slug", route.params.slug, locale.value);
+    // Get data from api with cache time of 300 seconds
+    articleService.getApiWithSlug(route.params.slug).then((res) => {
+      // console.log('res', res)
+        if (res.data.success === 1) {
+            // title.value = res.data.article.title[locale.value];
+            // content.value = res.data.article.data[locale.value].content;
+            // src.value = Object.values(res.data.article.data.en.image)[0];
+            article.value = res.data.article;
+        }
+    });
+});
+
 </script>
 <template>
   <div class="max-w-[1440px] mx-auto px-24">
@@ -29,13 +54,14 @@ const { t, locale } = useI18n();
       <div class="grid grid-cols-4 gap-7">
         <full-card
           class="col-span-3"
-          :title="t('articles.fullArticle.title')"
+          v-if="article.title"
+          :title="article.title[locale]"
           :writer="t('articles.fullArticle.writer')"
           :time="t('articles.fullArticle.time')"
-          :content1="t('articles.fullArticle.content1')"
-          :content2="t('articles.fullArticle.content2')"
-          :content3="t('articles.fullArticle.content3')"
-          src="/images/articles/full/full.svg"
+          :content1="article.data[locale].content"
+          :content2="article.data[locale].content"
+          :content3="article.data[locale].content"
+          :src="'/storage/' + Object.values(article.data.en.image)[0]"
           avatar="/images/articles/full/avatar.png"
         />
         <div>

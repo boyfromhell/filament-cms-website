@@ -66,6 +66,7 @@ const { t, locale } = useI18n();
                     class="mb-6"
                 >
                     <article-card
+                        :slug="article.slug"
                         :title="article.title[locale]"
                         :content="article.data[locale].content"
                         :date="article.updated_at"

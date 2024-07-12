@@ -47,7 +47,7 @@ const props = defineProps({
 </script>
 <template>
   <div class="rounded-normal shadow-fullArticle">
-    <img :src="props.src" />
+    <img :src="props.src" class="w-full rounded-tl-[20px] rounded-tr-[20px]" />
     <div class="px-3 pt-3 pb-3 text-start">
       <div class="flex gap-[14px] pb-2">
         <img :src="props.avatar" />
@@ -97,14 +97,15 @@ const props = defineProps({
         <img src="/images/articles/full/arrow-l.svg" />
         <p>{{ props.content2 }}</p>
       </div>
-      <p class="text-[#313131] text-base font-normal pb-10 px-1">
+      <p class="text-[#313131] text-base font-normal pb-5 px-1">
         {{ props.content3 }}
       </p>
+      <hr />
 
-      <div class="flex justify-between">
+      <div class="flex justify-between pt-5">
         <div class="flex gap-5">
-          <div
-            class="py-2 px-6 bg-[#F6F6F6] flex gap-2 justify-center rounded-lg"
+          <div @click="() => handleClickLike(props)"
+            class="cursor-pointer py-2 px-6 bg-[#F6F6F6] flex gap-2 justify-center rounded-lg"
           >
             <img src="/images/articles/full/save.svg" />
             <p class="text-[#313131] text-xs font-normal">
@@ -112,7 +113,7 @@ const props = defineProps({
             </p>
           </div>
           <div
-            class="py-2 px-6 bg-[#F6F6F6] flex gap-2 justify-center rounded-lg"
+            class="cursor-pointer py-2 px-6 bg-[#F6F6F6] flex gap-2 justify-center rounded-lg"
           >
             <img src="/images/articles/full/like.svg" />
             <p class="text-[#313131] text-xs font-normal">
@@ -120,7 +121,7 @@ const props = defineProps({
             </p>
           </div>
         </div>
-        <div class="flex gap-[10px]">
+        <div class="flex gap-[10px] px-2">
           <div><img src="/images/articles/full/facebook.svg" /></div>
           <div><img src="/images/articles/full/twitter.svg" /></div>
           <div><img src="/images/articles/full/instagram.svg" /></div>

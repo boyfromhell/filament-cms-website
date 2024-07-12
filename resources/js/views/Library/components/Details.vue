@@ -1,9 +1,8 @@
 <script setup>
-import { useDetailStore } from "@/store/detail";
 import { useLibraryStore } from "@/store/library";
 import { storeToRefs } from "pinia";
 import { useI18n } from "vue-i18n";
-import { ref, computed, onMounted } from "vue";
+import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import DetailCard from "@/components/DetailCard.vue";
 import BlogCard from "@/components/BlogCard.vue";
@@ -11,11 +10,7 @@ import { libraryService } from "@/services";
 const { t, locale } = useI18n();
 const libraryStore = useLibraryStore();
 const { librarys } = storeToRefs(useLibraryStore());
-const { selectedLibrary } = storeToRefs(useDetailStore());
 const library = ref({});
-const title = ref("");
-const content = ref("");
-const src = ref("");
 onMounted(() => {
     libraryStore.fetch();
     const route = useRoute();

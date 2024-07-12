@@ -24,8 +24,8 @@ class CmsPageTableSeeder extends Seeder
                 'slug' => 'cms-library',
                 'title' => '{"en":"Library"}',
                 'data' => NULL, // Ensure that having NULL here is intentional and acceptable in your application logic.
-                'template' => '{"key":null,"name":null}',
-                'page_type' => 'general',
+                'template' => '{"key":"App\\CmsPages\\Templates\\ContentType\\LibraryIndex","name":"content_type.library_index"}',
+                'page_type' => 'content_type',
                 'parent_id' => NULL, // Same comment as above.
                 'like' => NULL, // Ensure NULL is a valid and intentional value.
                 'look' => NULL,
@@ -38,8 +38,8 @@ class CmsPageTableSeeder extends Seeder
                 'slug' => 'cms-article',
                 'title' => '{"en":"Article"}',
                 'data' => NULL,
-                'template' => '{"key":null,"name":null}',
-                'page_type' => 'general',
+                'template' => '{"key":"App\\CmsPages\\Templates\\ContentType\\ArticleIndex","name":"content_type.article_index"}',
+                'page_type' => 'content_type',
                 'parent_id' => NULL,
                 'like' => NULL,
                 'look' => NULL,
