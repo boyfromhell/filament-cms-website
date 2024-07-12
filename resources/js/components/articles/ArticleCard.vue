@@ -105,9 +105,7 @@ const getTime = (time) => {
                 </p>
             </div>
 
-            <p class="text-[#313131] text-[11px] font-normal pb-3 pt-5">
-                {{ props.content }}
-            </p>
+            <p class="text-[#313131] text-[11px] font-normal pb-3 pt-5" v-html="props.content" />
             <p
                 @click="() => handleClickDetails(props)"
                 class="text-[#FF2400] text-sm font-bold underline cursor-pointer pb-6"

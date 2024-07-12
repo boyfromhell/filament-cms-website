@@ -40,12 +40,7 @@ const props = defineProps({
             <p class="text-[#45315D] text-lg font-bold pb-2">
                 {{ props.title }}
             </p>
-            <p class="text-[#313131] text-sm font-normal pb-1">
-                {{ props.content }}
-            </p>
-            <!-- <p class="text-[#313131] text-sm font-normal pb-1">
-        {{ props.content2 }}
-      </p> -->
+            <p class="text-[#313131] text-sm font-normal pb-1" v-html="props.content" />
             <p
                 @click="() => handleClickDetails(props)"
                 class="text-[#F36A10] text-sm font-bold underline pb-3 cursor-pointer"

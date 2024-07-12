@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Seo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use SolutionForest\FilamentCms\Models\CmsPage as BaseModel;
 use Spatie\Translatable\HasTranslations;
 
@@ -22,4 +24,8 @@ class CmsPage extends BaseModel
         }
         return $this->parentPage?->isDocumentPage() ?? false;
     }
+    // public function seo(): HasOne
+    // {
+    //     return $this->hasOne(Seo::class,'foreign_key', 'local_key');
+    // }
 }

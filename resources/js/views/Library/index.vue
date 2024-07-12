@@ -92,17 +92,20 @@ const change = (pageState) => {
 };
 
 const itemsPaginated1 = computed(() =>
-        librarys.value.slice(5 * (currentPage.value - 1), 5 * currentPage.value)
+    librarys.value.slice(5 * (currentPage.value - 1), 5 * currentPage.value)
 );
 const itemsPaginated = computed(() => {
-  // Check if the 'librarys' array has items
-  if (librarys.value) {
-    // If yes, return the paginated items
-    return librarys.value.slice(5 * (currentPage.value - 1), 5 * currentPage.value);
-  } else {
-    // If the array is empty, return an empty array or any suitable default
-    return [];
-  }
+    // Check if the 'librarys' array has items
+    if (librarys.value) {
+        // If yes, return the paginated items
+        return librarys.value.slice(
+            5 * (currentPage.value - 1),
+            5 * currentPage.value
+        );
+    } else {
+        // If the array is empty, return an empty array or any suitable default
+        return [];
+    }
 });
 
 const { t, locale } = useI18n();
@@ -130,12 +133,17 @@ const { t, locale } = useI18n();
 
         <div class="pt-20 flex flex-col gap-12" v-if="itemsPaginated">
             <div v-for="library in itemsPaginated" :key="library.id">
-                <library-card
-                    :slug="library.slug"
-                    :title="library.title[locale]"
-                    :content="library.data[locale].content"
-                    :src="'/storage/' + Object.values(library.data.en.image)[0]"
-                />
+                <div v-if="library.title[locale]">
+                    <library-card
+                        :slug="library.slug"
+                        :title="library.title[locale]"
+                        :content="library.data[locale].content"
+                        :src="
+                            '/storage/' +
+                            library.seo.image
+                        "
+                    />
+                </div>
             </div>
         </div>
     </div>

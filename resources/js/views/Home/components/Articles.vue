@@ -5,6 +5,7 @@ import { useArticleStore } from "@/store/article";
 // import useLibrary from "@/use/useLibrary";
 import { useI18n } from "vue-i18n";
 import { Carousel, Navigation, Slide } from "vue3-carousel";
+import router from "@/router";
 import "vue3-carousel/dist/carousel.css";
 const itemsToShow = ref(2); // Default value
 
@@ -18,7 +19,7 @@ function updateItemsToShow() {
     }
 }
 
-const { articles, selectedArticle, loading } = storeToRefs(useArticleStore());
+const { articles } = storeToRefs(useArticleStore());
 const articleStore = useArticleStore();
 
 onBeforeMount(() => {
@@ -34,18 +35,11 @@ onMounted(() => {
 onUnmounted(() => {
     window.removeEventListener("resize", updateItemsToShow);
 });
-const slides = ref([
-    {
-        content: "Slide 1 Content",
-        url: "/images/home/carousel2-1.svg",
-        btn: "اللإطلاع على المدونة",
-    },
-    {
-        content: "Slide 2 Content",
-        url: "/images/home/carousel2-2.svg",
-        btn: "اللإطلاع على المدونة",
-    },
-]);
+
+const handleClickDetails = (slug) => {
+    console.log("slug", slug);
+    router.push({ name: "Article", params: { slug: slug } });
+};
 const { t, locale } = useI18n();
 </script>
 <template>
@@ -84,44 +78,61 @@ const { t, locale } = useI18n();
             <div class="w-3/4" v-if="articles">
                 <Carousel :itemsToShow="itemsToShow" :wrapAround="true">
                     <Slide v-for="(slide, index) in articles" :key="index">
-                        <div class="shadow-4xl rounded-[10px]">
-                            <img
-                                class="px-6 pt-6 rounded-[10px]"
-                                :src="
-                                    '/storage/' +
-                                    Object.values(slide.data.en.image)[0]
-                                "
-                            />
-                            <div class="text-start px-7">
-                                <div
-                                    class="flex rtl:flex-row-reverse rtl:text-end justify-between py-2"
-                                >
-                                    <p
-                                        class="text-[#333333] text-sm font-semibold"
-                                    >
-                                        <!-- {{ t("articles.carouselTitle") }} -->
-                                        {{ slide.title[locale] }}
-                                    </p>
+                        <div v-if="slide.title[locale]">
+                            <div class="shadow-4xl rounded-[10px]">
+                                <img
+                                    class="px-6 pt-6 rounded-[10px]"
+                                    :src="'/storage/' + slide.seo.image"
+                                />
+                                <div class="text-start px-7">
                                     <div
-                                        class="text-[#313131] text-xs font-normal"
+                                        class="flex rtl:flex-row-reverse rtl:text-end justify-between py-2"
                                     >
-                                        <span>{{ (new Date(slide.updated_at)).getFullYear() }},</span> <span>{{ (new Date(slide.updated_at)).getMonth()+1 }},</span>
-                                        <span>{{ (new Date(slide.updated_at)).getDate() }}</span>
+                                        <p
+                                            class="text-[#333333] text-sm font-semibold"
+                                        >
+                                            <!-- {{ t("articles.carouselTitle") }} -->
+                                            {{ slide.title[locale] }}
+                                        </p>
+                                        <div
+                                            class="text-[#313131] text-xs font-normal"
+                                        >
+                                            <span
+                                                >{{
+                                                    new Date(
+                                                        slide.updated_at
+                                                    ).getFullYear()
+                                                }},</span
+                                            >
+                                            <span
+                                                >{{
+                                                    new Date(
+                                                        slide.updated_at
+                                                    ).getMonth() + 1
+                                                }},</span
+                                            >
+                                            <span>{{
+                                                new Date(
+                                                    slide.updated_at
+                                                ).getDate()
+                                            }}</span>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <p
-                                    class="rtl:text-end text-xs font-normal text-[#858585] pb-3"
-                                >
-                                    <!-- {{ t("articles.carouselContent") }} -->
-                                    {{ slide.data[locale].content }}
-                                </p>
-                                <p
-                                    class="rtl:text-end text-sm font-semibold text-[#FF2400] underline pb-4"
-                                >
-                                    {{ t("articles.seeMore") }}
-                                </p>
-                                <!-- <p>{{ slide.content }}</p> -->
+                                    <p
+                                        class="text-xs font-normal text-[#858585] pb-3"
+                                        v-html="slide.data[locale].content"
+                                    />
+                                    <p
+                                        @click="
+                                            () => handleClickDetails(slide.slug)
+                                        "
+                                        class="cursor-pointer rtl:text-end text-sm font-semibold text-[#FF2400] underline pb-4"
+                                    >
+                                        {{ t("articles.seeMore") }}
+                                    </p>
+                                    <!-- <p>{{ slide.content }}</p> -->
+                                </div>
                             </div>
                         </div>
                     </Slide>

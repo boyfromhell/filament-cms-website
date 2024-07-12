@@ -10,7 +10,15 @@ class LibraryIndex extends BaseTemplate implements CmsPageTemplate
 {
     public static function schema(): array
     {
-        return [];
+        return [
+            Forms\Components\Card::make()
+                ->schema([
+                Forms\Components\TextInput::make('title')
+                        ->label('Title'),
+                    Forms\Components\TextInput::make('content')
+                        ->label(__('filament-cms::filament-cms.fields.cms_page.block-template.content'))
+                ]),
+        ];
     }
 
     public static function title(): string

@@ -5,6 +5,7 @@ namespace App\Filament\Resources\ContentType;
 use App\Filament\Resources\ContentType\ArticleResource\Pages;
 use App\CmsPages\Templates\ContentType\Article as Template;
 use Filament\Forms;
+use App\Models\CmsPage;
 use Illuminate\Database\Eloquent\Builder;
 use SolutionForest\FilamentCms\Enums\PageType;
 use SolutionForest\FilamentCms\Filament\Resources\ContentTypePageBaseResource as BaseResource;
@@ -14,6 +15,9 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 
 class ArticleResource extends BaseResource
 {
@@ -32,29 +36,36 @@ class ArticleResource extends BaseResource
         return 'Article';
     }
 
-    // public static function table(Table $table): Table
-    // {
-    //     return $table
-    //         ->columns([
-    //             TextColumn::make('id'),
-    //             TextColumn::make('slug'),
-    //             TextColumn::make('url'),
-
-    //             TextColumn::make('status'),
-    //             TextColumn::make('live'),
-    //             TextColumn::make('created_at')->dateTime(),
-    //             TextColumn::make('updated_at')->dateTime(),
-    //         ])
-    //         ->filters([
-    //             //
-    //         ])
-    //         ->actions([
-    //             Tables\Actions\EditAction::make(),
-    //         ])
-    //         ->bulkActions([
-    //             Tables\Actions\DeleteBulkAction::make(),
-    //         ]);
-    // }
+    public static function table(Table $table): Table
+    {
+        return parent::table($table)
+            // avoid edit docs
+            ->checkIfRecordIsSelectableUsing(fn (CmsPage $record) => ! $record->isDocumentPage())
+            ->columns([
+                Tables\Columns\TextColumn::make('title')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('slug')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('status')
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'draft' => 'gray',
+                        'reviewing' => 'warning',
+                        'published' => 'success',
+                        'rejected' => 'danger',
+                    }),
+                // TextColumn::make('live?'),
+                TextColumn::make('created_at')->dateTime()
+                     ->sortable(),
+                TextColumn::make('updated_at')->dateTime()
+                     ->sortable(),
+                ]);
+            // ->filters([
+            //                 //
+            // ]);
+    }
 
     public static function getPages(): array
     {

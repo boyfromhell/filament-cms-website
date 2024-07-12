@@ -75,6 +75,7 @@ const { t, locale } = useI18n();
 const localizedContent = computed(() => {
     return slide.data[locale.value].content;
 });
+// console.log("librarys", librarys.value);
 const localizedTitle = computed(() => {
     return slide.title[locale.value];
 });
@@ -109,38 +110,45 @@ const localizedTitle = computed(() => {
         <div class="pt-8" v-if="librarys">
             <Carousel :itemsToShow="itemsToShow" :wrapAround="true">
                 <Slide v-for="(slide, index) in librarys" :key="index">
-                    <div class="rounded-[10px] shadow-3xl">
-                        <img
-                            class="rounded-tr-[10px] rounded-tl-[10px] w-full"
-                            :src="
-                                '/storage/' +
-                                Object.values(slide.data.en.image)[0]
-                            "
-                        />
-                        <!-- <p>{{ Object.values(slide.data[locale].image)[0] }}</p> -->
-                        <div class="text-start p-3">
-                            <div class="flex rtl:flex-row-reverse gap-2 pb-3">
-                                <img src="/images/home/ellipse.svg" />
-                                <p>{{ slide.title[locale] }}</p>
+                    <div v-if="slide.title[locale]">
+                        <div class="rounded-[10px] shadow-3xl">
+                            <img
+                                class="rounded-tr-[10px] rounded-tl-[10px] w-full"
+                                :src="
+                                    '/storage/' +
+                                    slide.seo.image
+                                "
+                            />
+                            <!-- <p>{{ Object.values(slide.data[locale].image)[0] }}</p> -->
+                            <div class="text-start p-3">
+                                <div
+                                    class="flex rtl:flex-row-reverse gap-2 pb-3"
+                                >
+                                    <img src="/images/home/ellipse.svg" />
+                                    <p>{{ slide.title[locale] }}</p>
+                                </div>
+                                <p  v-html="slide.data[locale].content" />
+                                    <!-- {{ localizedContent }} -->
+                                <!-- <p>{{ slide.content }}</p> -->
                             </div>
-                            <p class="rtl:text-end">
-                                <!-- {{ localizedContent }} -->
-                                {{ slide.data[locale].content }}
-                            </p>
-                            <!-- <p>{{ slide.content }}</p> -->
-                        </div>
-                        <router-link :to="{name: 'Library', params: {slug: slide.slug }}">
-                            <button
-                                :class="[
-                                    'w-4/5 h-12 rounded-lg mt-3 mb-4',
-                                    locale === 'en'
-                                        ? 'button-gradient-l'
-                                        : 'button-gradient-r',
-                                ]"
+                            <router-link
+                                :to="{
+                                    name: 'Library',
+                                    params: { slug: slide.slug },
+                                }"
                             >
-                                {{ t("resourceLibrary.btn") }}
-                            </button>
-                        </router-link>
+                                <button
+                                    :class="[
+                                        'w-4/5 h-12 rounded-lg mt-3 mb-4',
+                                        locale === 'en'
+                                            ? 'button-gradient-l'
+                                            : 'button-gradient-r',
+                                    ]"
+                                >
+                                    {{ t("resourceLibrary.btn") }}
+                                </button>
+                            </router-link>
+                        </div>
                     </div>
                 </Slide>
                 <!-- <template #addons>

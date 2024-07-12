@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CmsPage;
+use App\Models\Seo;
 use App\Models\CmsPublishedPage;
 class ArticleController extends Controller
 {
@@ -11,16 +12,6 @@ class ArticleController extends Controller
      */
     public function index():array
     {
-        // $slug='cms-article';
-        // $articleID = CmsPage::where('slug', $slug)->first();
-        // if($articleID){
-        //     $articles=CmsPage::where('parent_id', $articleID->id)->get();
-        //     // dd($articles);
-        //     return ['articles' => $articles,'success' => 1, 'message' => 'User updated successfully.'];
-        //     // return $articles;
-            
-        // }
-
         $slug='cms-article';
         $slugId=CmsPublishedPage::where('slug', $slug)->first();
         if($slugId){
@@ -30,6 +21,12 @@ class ArticleController extends Controller
             if($publishedArticles->isNotEmpty()){
                 // $librarys = CmsPage::where('id', $publishedArticles->page_id)->get();
                 $articles = CmsPage::whereIn('id', $pageIds)->get();
+                $seoItems=Seo::where('model_type', 'App\Models\CmsPage')->whereIn('model_id', $pageIds)->get();
+                $seoMap = $seoItems->keyBy('model_id');
+
+                foreach ($articles as $article) {
+                    $article->seo = $seoMap[$article->id] ?? null;
+                }
                 // dd($librarys);
                 return ['articles' => $articles,'success' => 1, 'message' => 'Articles fetched successfully.'];
             } else {
@@ -41,13 +38,6 @@ class ArticleController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    // public function show(CmsPage $page): LibraryResource
-    // {
-    //     return new LibraryResource($page);
-    // }
     public function show(string $slug)
     {
         $pre_slug='cms-article';
@@ -58,6 +48,8 @@ class ArticleController extends Controller
         $article=CmsPage::where('parent_id', $pre_slugId->id)
                         ->where('slug', $slug)
                         ->first();
+        $seoItems=Seo::where('model_type', 'App\Models\CmsPage')->where('model_id', $article->id)->first();
+        $article->seo=$seoItems;
         if (!$article) {
             return response()->json(['success' => 0, 'message' => 'Article not found.'], 404);
         }

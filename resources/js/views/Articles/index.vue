@@ -66,6 +66,7 @@ const { t, locale } = useI18n();
                     class="mb-6"
                 >
                     <article-card
+                        v-if="article.title[locale]"
                         :slug="article.slug"
                         :title="article.title[locale]"
                         :content="article.data[locale].content"
@@ -74,7 +75,7 @@ const { t, locale } = useI18n();
                         :looked="article.look"
                         :src="
                             '/storage/' +
-                            Object.values(article.data.en.image)[0]
+                            article.seo.image
                         "
                     />
                 </div>

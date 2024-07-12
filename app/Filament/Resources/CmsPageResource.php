@@ -28,6 +28,7 @@ class CmsPageResource extends BaseResource implements
             'schedule_publish',
         ]);
     }
+    
 
     public static function getPages(): array
     {

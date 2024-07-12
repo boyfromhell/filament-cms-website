@@ -18,10 +18,12 @@ onMounted(() => {
     // Get data from api with cache time of 300 seconds
     libraryService.getApiWithSlug(route.params.slug).then((res) => {
         if (res.data.success === 1) {
+            console.log("slug", res);
             // title.value = res.data.library.title[locale.value];
             // content.value = res.data.library.data[locale.value].content;
             // src.value = Object.values(res.data.library.data.en.image)[0];
             library.value = res.data.library;
+            console.log("image", res.data.library.seo.image);
         }
     });
 });
@@ -52,7 +54,7 @@ onMounted(() => {
                 v-if="library.title"
                 :title="library.title[locale]"
                 :content="library.data[locale].content"
-                :src="'/storage/' + Object.values(library.data.en.image)[0]"
+                :src="'/storage/' + library.seo.image"
             />
         </div>
 
@@ -60,12 +62,14 @@ onMounted(() => {
             {{ t("library.details.suggestedBlog") }}
         </p>
         <div class="grid grid-cols-3 gap-10 pb-16">
-            <div v-for="(library, index) in librarys" :key="index">
-                <blog-card
-                    :title="library.title[locale]"
-                    :content="library.data[locale].content"
-                    :src="'/storage/' + Object.values(library.data.en.image)[0]"
-                />
+            <div v-for="library in librarys" :key="library.id">
+                <div v-if="library.title[locale]">
+                    <blog-card
+                        :title="library.title[locale]"
+                        :content="library.data[locale].content"
+                        :src="'/storage/' + library.seo.image"
+                    />
+                </div>
             </div>
         </div>
     </div>
