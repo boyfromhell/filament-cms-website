@@ -55,7 +55,12 @@ class ArticleResource extends BaseResource
                         'reviewing' => 'warning',
                         'published' => 'success',
                         'rejected' => 'danger',
-                    }),
+                    })
+                    ->formatStateUsing([
+                        'draft' => 'Draft',
+                        'reviewing' => 'Reviewing',
+                        'published' => 'Published',
+                    ]),
                 // TextColumn::make('live?'),
                 TextColumn::make('created_at')->dateTime()
                      ->sortable(),

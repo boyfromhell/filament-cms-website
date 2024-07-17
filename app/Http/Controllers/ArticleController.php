@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CmsPage;
 use App\Models\Seo;
+use Illuminate\Http\Request;
 use App\Models\CmsPublishedPage;
 class ArticleController extends Controller
 {
@@ -56,5 +57,21 @@ class ArticleController extends Controller
         // dd($article);
         return ['article' => $article,'success' => 1, 'message' => 'Article fetched successfully.'];
         
+    }
+    public function addLike(string $slug, Request $request){
+        $pre_slug='cms-article';
+        $data = $request->all();
+        $pre_slugId=CmsPage::where('slug', $pre_slug)->first();
+        // dd($pre_slugId);
+        // dd($slug, $data['like']);
+        $article = CmsPage::where('parent_id', $pre_slugId->id)
+                            ->where('slug', $slug)
+                            ->first();
+        // dd($article);
+        // ->update(['piece_title' => $data->title]);
+        $article->like = $data['like'];
+        $article->save();
+        return $article;
+
     }
 }

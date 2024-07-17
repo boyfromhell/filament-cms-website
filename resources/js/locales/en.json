@@ -126,6 +126,8 @@
             "title": "Working Hours",
             "info": "Monday - Friday, 9:00 AM"
         },
+        "sendSuccess":"Email sent successfully!",
+        "sendError":"Failed to send mail",
         "stayInTouch": "Let's Stay in Touch",
         "sample": "This text is an example of text that can be replaced in the same space, it has been generated this"
     },

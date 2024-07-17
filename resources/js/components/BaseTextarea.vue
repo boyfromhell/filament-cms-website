@@ -110,10 +110,10 @@ const setDate = (value) => {
         ><span class="font-light">{{ t("contact.letter") }}</span>
       </p>
     </div>
-    <div class="text-end pt-6">
+    <!-- <div class="text-end pt-6">
       <button class="w-1/2 h-12 bg-[#6B6B6B] rounded-lg text-sm font-normal">
         {{ t("contact.sendNow") }}
       </button>
-    </div>
+    </div> -->
   </div>
 </template>

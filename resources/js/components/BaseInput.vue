@@ -82,7 +82,7 @@ const setDate = (value) => {
         class="relative text-gray-600 search-bar mx-3 flex w-full"
       >
         <!-- <VueDatePicker v-model="date"> -->
-        <VueDatePicker
+        <!-- <VueDatePicker
           :model-value="date"
           @update:model-value="setDate"
           :format="format"
@@ -92,7 +92,7 @@ const setDate = (value) => {
               {{ format(date) }}
             </p>
           </template>
-        </VueDatePicker>
+        </VueDatePicker> -->
       </div>
       <div
         v-else

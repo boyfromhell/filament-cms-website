@@ -17,9 +17,10 @@ class ArticleService {
     //   return http.get('/prices')
     // }
 
-    edit(pieceId, title) {
-        return http.put(this.apiUrl + "/" + pieceId, {
-            title,
+    addLike(slug, like) {
+        console.log('lekfef', slug, like)
+        return http.post(this.apiUrl + "/add/" + slug, {
+            like,
         });
     }
 

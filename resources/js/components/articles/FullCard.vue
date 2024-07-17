@@ -1,15 +1,35 @@
 <script setup>
+import { ref, onMounted } from "vue";
 import { useI18n } from "vue-i18n";
 import { useDetailStore } from "@/store/detail";
+import { useArticleStore } from "@/store/article";
 import { storeToRefs } from "pinia";
+import { useRoute } from "vue-router";
+import { articleService } from "@/services";
 const { t, locale } = useI18n();
-const libraryStore = useDetailStore();
-const { librarys, selectedLibrary, loading } = storeToRefs(useDetailStore());
-const handleClickDetails = (library) => {
+const articleStore = useArticleStore();
+const like = ref(false);
+const route = useRoute();
+const { articles, selectedArticle, loading } = storeToRefs(useArticleStore());
+const handleClickLike = () => {
+    like.value = !like.value;
+    console.log("slug123", route.params.slug, locale.value);
+    if (like.value === true) {
+        console.log("like1", props.like + 1);
+        articleService.addLike(route.params.slug, props.like + 1).then((res) => {
+            console.log('res', res)
+            // if (res.data.success === 1) {
+            //     article.value = res.data.article;
+            // }
+        });
+    }
+    // console.log('articles', articles)
     //   console.log("library", library);
-    libraryStore.setSelectedLibrary(library);
-    router.push("/details");
+    // libraryStore.setSelectedLibrary(library);
 };
+onMounted(() => {
+    articleStore.fetch();
+});
 const props = defineProps({
     title: {
         type: String,
@@ -37,6 +57,10 @@ const props = defineProps({
     },
     src: {
         type: String,
+        default: "",
+    },
+    like: {
+        type: Number,
         default: "",
     },
     avatar: {
@@ -110,7 +134,7 @@ const props = defineProps({
             <div class="flex justify-between pt-5">
                 <div class="flex gap-5">
                     <div
-                        @click="() => handleClickLike(props)"
+                        @click="() => handleClickLike()"
                         class="cursor-pointer py-2 px-6 bg-[#F6F6F6] flex gap-2 justify-center rounded-lg"
                     >
                         <img src="/images/articles/full/save.svg" />
@@ -119,9 +143,16 @@ const props = defineProps({
                         </p>
                     </div>
                     <div
+                        @click="() => handleClickLike()"
                         class="cursor-pointer py-2 px-6 bg-[#F6F6F6] flex gap-2 justify-center rounded-lg"
                     >
-                        <img src="/images/articles/full/like.svg" />
+                        <img
+                            :src="
+                                like
+                                    ? '/images/articles/full/like.png'
+                                    : '/images/articles/full/dis-like.svg'
+                            "
+                        />
                         <p class="text-[#313131] text-xs font-normal">
                             {{ t("articles.card.like") }}
                         </p>

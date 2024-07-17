@@ -62,6 +62,7 @@ onMounted(() => {
           :content2="article.data[locale].content"
           :content3="article.data[locale].content"
           :src="'/storage/' + article.seo.image"
+          :like="article.like"
           avatar="/images/articles/full/avatar.png"
         />
         <div>

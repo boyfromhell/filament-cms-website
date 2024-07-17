@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use App\Livewire\Form;
+use App\Mail\MyEmail;
 
 // \Illuminate\Support\Facades\Route::get('form', Form::class);
 
@@ -17,6 +18,7 @@ use App\Livewire\Form;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 
 Route::get('change-locale/{locale}', function ($locale) {
 
